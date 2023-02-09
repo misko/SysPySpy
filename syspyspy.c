@@ -66,15 +66,15 @@ static void bigmaac_init(void)
 
 
 void size_to_units(size_t size, char * unit, float * value_ptr) {
-	float value = size/1024.0;
+	float value = size;
 	char * units = "BKMGTX";
 	for (int i=0; i<strlen(units); i++) {
-		if (value<1000.0) {
+		if (value<1024.0) {
 			*unit=units[i];
 			*value_ptr=value;
 			return;
 		}
-		value/=1000.0;
+		value/=1024.0;
 	}
 	*unit=units[strlen(units)-1];
 	*value_ptr=value;
