@@ -30,7 +30,7 @@ enum load_status { LIBRARY_FAIL=-1,
 
 static enum load_status load_state=NOT_LOADED;
 
-static void bigmaac_init(void)
+static void syspyspy_init(void)
 {
     pthread_mutex_lock(&lock);
     if (load_state==LIBRARY_FAIL) {
@@ -94,7 +94,7 @@ void report_alloc_size(char * func_name, size_t size) {
 void *malloc(size_t size)
 {
     if(load_state==NOT_LOADED && real_malloc==NULL) {
-        bigmaac_init();
+        syspyspy_init();
     }
     if (size>size_alloc_calls) {
 	report_alloc_size("malloc",size);
@@ -109,7 +109,7 @@ void *calloc(size_t count, size_t size)
     }
 
     if(load_state==NOT_LOADED || real_malloc==NULL) {
-        bigmaac_init();
+        syspyspy_init();
     }
 
     if (size>size_alloc_calls) {
@@ -121,7 +121,7 @@ void *calloc(size_t count, size_t size)
 
 void *reallocarray(void * ptr, size_t size,size_t count) {
     if(load_state==NOT_LOADED && real_malloc==NULL) {
-        bigmaac_init();
+        syspyspy_init();
     }
 
     if (size*count>size_alloc_calls) {
@@ -134,7 +134,7 @@ void *reallocarray(void * ptr, size_t size,size_t count) {
 void *realloc(void * ptr, size_t size)
 {
     if(load_state==NOT_LOADED && real_malloc==NULL) {
-        bigmaac_init();
+        syspyspy_init();
     }
 
     if (size>size_alloc_calls) {
@@ -146,7 +146,7 @@ void *realloc(void * ptr, size_t size)
 
 void free(void* ptr) {
     if(load_state==NOT_LOADED && real_malloc==NULL) {
-        bigmaac_init();
+        syspyspy_init();
     }
 
     //TODO implement tracking of large memory allocs and report when they are free'd
