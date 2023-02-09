@@ -3,6 +3,9 @@ System Call Python Spy is intended as a small raw example of
 how to intercept system calls (specifically *alloc) and dump
 a python stack from the top level caller. 
 
+<img src="https://user-images.githubusercontent.com/1278972/217698983-193c0896-5bda-4236-9f6b-4804dde28bd4.png" width="250" height="250" />
+
+
 Quick start,
 
 `make`
